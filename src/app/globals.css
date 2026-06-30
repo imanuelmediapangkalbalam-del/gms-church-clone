@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gold: #C8A951;
+  --gold-light: #E8D48B;
+  --dark: #1A1A2E;
+  --maroon: #8B0000;
+  --cream: #FFF8E7;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: #1a1a1a;
+  overflow-x: hidden;
+}
+
+/* Announcement Ticker */
+.announcement-ticker {
+  background: linear-gradient(90deg, var(--maroon), #c0392b, var(--maroon));
+  color: white;
+  padding: 6px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.ticker-track {
+  display: inline-block;
+  animation: tickerScroll 40s linear infinite;
+}
+
+@keyframes tickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Hero Section */
+.hero-overlay {
+  background: linear-gradient(135deg, rgba(26,26,46,0.85) 0%, rgba(26,26,46,0.4) 50%, rgba(26,26,46,0.85) 100%);
+}
+
+/* Carousel */
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-btn {
+  @apply absolute top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/90 shadow-lg flex items-center justify-center hover:bg-white transition-all duration-200;
+  backdrop-filter: blur(4px);
+}
+
+.carousel-btn:hover {
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Glassmorphism */
+.glass-card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Location Card */
+.location-card {
+  @apply bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300;
+}
+
+.location-card:hover {
+  @apply shadow-2xl;
+  transform: translateY(-4px);
+}
+
+.location-btn {
+  @apply px-4 py-2 rounded-full text-sm font-medium transition-all duration-200;
+}
+
+/* Navbar */
+.nav-link {
+  @apply text-white/80 hover:text-gms-gold transition-colors duration-200 font-medium text-sm tracking-wide;
+}
+
+/* Section Styles */
+.section-title {
+  font-family: 'Playfair Display', serif;
+  @apply text-4xl md:text-5xl font-bold text-center;
+}
+
+.section-subtitle {
+  @apply text-gms-gold text-sm md:text-base uppercase tracking-[0.3em] font-semibold mb-4;
+}
+
+/* Scroll animation helper */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b8942e;
+}
+
+/* Marquee for ticker - fallback */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee {
+  animation: marquee 30s linear infinite;
+}
+
+.marquee:hover {
+  animation-play-state: paused;
+}
