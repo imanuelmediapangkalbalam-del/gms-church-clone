@@ -33,6 +33,11 @@ npm run dev
 
 Buka [http://localhost:3000](http://localhost:3000)
 
+## 🌐 Live Site
+
+Website ini sudah live di GitHub Pages:
+**[https://imanuelmediapangkalbalam-del.github.io/gms-church-clone/](https://imanuelmediapangkalbalam-del.github.io/gms-church-clone/)**
+
 ## Build Production
 
 ```bash
