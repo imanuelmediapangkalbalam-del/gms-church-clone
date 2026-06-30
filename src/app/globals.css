@@ -7,9 +7,11 @@
 :root {
   --gold: #C8A951;
   --gold-light: #E8D48B;
+  --gold-dark: #A88A2E;
   --dark: #1A1A2E;
   --maroon: #8B0000;
   --cream: #FFF8E7;
+  --gold-glow: 0 0 20px rgba(200, 169, 81, 0.3);
 }
 
 * {
@@ -29,7 +31,9 @@ body {
   background: #fff;
 }
 
-/* Announcement Ticker */
+/* ════════════════════════════════════════════
+   ANNOUNCEMENT TICKER
+   ════════════════════════════════════════════ */
 .announcement-ticker {
   background: linear-gradient(90deg, var(--maroon), #c0392b, var(--maroon));
   color: white;
@@ -50,30 +54,275 @@ body {
   100% { transform: translateX(-50%); }
 }
 
-/* Hero Overlay */
+/* ════════════════════════════════════════════
+   KEYFRAME ANIMATIONS
+   ════════════════════════════════════════════ */
+
+/* Fade In Up — for sections and cards */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Simple Fade In */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Slide In Left */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Slide In Right */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Scale In */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Float — for floating decorative elements */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Pulse Glow — for gold glowing effects */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(200, 169, 81, 0.3),
+                0 0 10px rgba(200, 169, 81, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(200, 169, 81, 0.5),
+                0 0 30px rgba(200, 169, 81, 0.2);
+  }
+}
+
+/* Gradient Shift — for animated gradient backgrounds */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Shimmer — for gradient border effects */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Heartbeat */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.15); }
+  50% { transform: scale(1); }
+  75% { transform: scale(1.1); }
+}
+
+/* ════════════════════════════════════════════
+   UTILITY ANIMATION CLASSES
+   ════════════════════════════════════════════ */
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.5s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.5s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.4s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
+}
+
+.animate-shimmer {
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+.animate-heartbeat {
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+/* Delay utilities for staggered animations */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+.delay-700 { animation-delay: 700ms; }
+.delay-800 { animation-delay: 800ms; }
+
+/* ════════════════════════════════════════════
+   PAGE TRANSITIONS
+   ════════════════════════════════════════════ */
+
+.page-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Page content wrapper for entrance animation */
+.page-content {
+  animation: fadeInUp 0.7s ease-out;
+}
+
+/* ════════════════════════════════════════════
+   SCROLL REVEAL ANIMATIONS
+   ════════════════════════════════════════════ */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+.reveal-scale.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ════════════════════════════════════════════
+   HERO OVERLAY
+   ════════════════════════════════════════════ */
 .hero-overlay {
   background: linear-gradient(135deg, rgba(26,26,46,0.85) 0%, rgba(26,26,46,0.4) 50%, rgba(26,26,46,0.85) 100%);
 }
 
-/* Carousel */
+/* ════════════════════════════════════════════
+   CAROUSEL
+   ════════════════════════════════════════════ */
 .carousel-track {
   display: flex;
   transition: transform 0.5s ease-in-out;
 }
 
-/* Glass Card */
+/* ════════════════════════════════════════════
+   GLASS CARD
+   ════════════════════════════════════════════ */
 .glass-card {
   background: rgba(255,255,255,0.1);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255,255,255,0.2);
 }
 
-/* Section Styles */
+/* ════════════════════════════════════════════
+   SECTION STYLES
+   ════════════════════════════════════════════ */
 .section-title {
   font-family: 'Playfair Display', serif;
 }
 
-/* Custom Scrollbar */
+/* ════════════════════════════════════════════
+   CUSTOM SCROLLBAR
+   ════════════════════════════════════════════ */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -85,10 +334,12 @@ body {
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #b8942e;
+  background: var(--gold-dark);
 }
 
-/* Accordion */
+/* ════════════════════════════════════════════
+   ACCORDION
+   ════════════════════════════════════════════ */
 .accordion-content {
   max-height: 0;
   overflow: hidden;
@@ -98,7 +349,9 @@ body {
   max-height: 500px;
 }
 
-/* Page Hero */
+/* ════════════════════════════════════════════
+   PAGE HERO
+   ════════════════════════════════════════════ */
 .page-hero {
   @apply relative h-[300px] md:h-[400px] flex items-center justify-center overflow-hidden;
 }
@@ -108,35 +361,219 @@ body {
   background: linear-gradient(135deg, rgba(26,26,46,0.9) 0%, rgba(26,26,46,0.6) 100%);
 }
 
-/* Active Nav Indicator */
+/* ════════════════════════════════════════════
+   NAV ACTIVE INDICATOR (Enhanced)
+   ════════════════════════════════════════════ */
 .nav-active {
   @apply text-gms-gold relative;
 }
 .nav-active::after {
   content: '';
-  @apply absolute bottom-0 left-0 right-0 h-0.5 bg-gms-gold rounded-full;
+  @apply absolute -bottom-1 left-1/2 -translate-x-1/2 w-5 h-0.5 bg-gms-gold rounded-full;
+  animation: scaleIn 0.3s ease-out;
 }
 
-/* Page transition */
-.page-enter {
-  opacity: 0;
-  transform: translateY(20px);
-}
-.page-enter-active {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-/* Mobile menu slide-in */
-@keyframes slideIn {
+/* ════════════════════════════════════════════
+   MOBILE MENU SLIDE-IN (Enhanced)
+   ════════════════════════════════════════════ */
+@keyframes slideInRightPanel {
   from {
     transform: translateX(100%);
+    opacity: 0;
   }
   to {
     transform: translateX(0);
+    opacity: 1;
   }
 }
+
+@keyframes slideOutRightPanel {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
 .animate-slide-in {
-  animation: slideIn 0.3s ease-out;
+  animation: slideInRightPanel 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ════════════════════════════════════════════
+   GRADIENT BORDER (for footer top)
+   ════════════════════════════════════════════ */
+.gradient-border-shimmer {
+  background: linear-gradient(90deg, var(--gold), var(--maroon), var(--gold), var(--maroon), var(--gold));
+  background-size: 200% 100%;
+  animation: shimmer 4s linear infinite;
+}
+
+/* ════════════════════════════════════════════
+   NAV HOVER LIFT
+   ════════════════════════════════════════════ */
+.nav-link-hover {
+  transition: all 0.2s ease;
+}
+.nav-link-hover:hover {
+  transform: translateY(-2px);
+}
+
+/* ════════════════════════════════════════════
+   GOLD TEXT GRADIENT
+   ════════════════════════════════════════════ */
+.text-gradient-gold {
+  background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ════════════════════════════════════════════
+   NEWSLETTER INPUT
+   ════════════════════════════════════════════ */
+.newsletter-input {
+  @apply w-full px-4 py-2.5 bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-500 text-sm;
+  transition: all 0.3s ease;
+}
+.newsletter-input:focus {
+  @apply outline-none border-gms-gold/50;
+  box-shadow: 0 0 0 3px rgba(200, 169, 81, 0.1);
+}
+
+/* ════════════════════════════════════════════
+   BACK TO TOP
+   ════════════════════════════════════════════ */
+.back-to-top {
+  @apply fixed bottom-6 right-6 z-50 w-10 h-10 rounded-full bg-gms-gold text-gms-dark flex items-center justify-center shadow-lg cursor-pointer;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.back-to-top:hover {
+  @apply bg-gms-gold/90;
+  transform: translateY(-3px);
+  box-shadow: var(--gold-glow);
+}
+
+/* ════════════════════════════════════════════
+   SOCIAL ICON GLOW
+   ════════════════════════════════════════════ */
+.social-icon-glow:hover {
+  box-shadow: 0 0 15px rgba(200, 169, 81, 0.4);
+}
+
+/* ════════════════════════════════════════════
+   LINK ARROW ANIMATION
+   ════════════════════════════════════════════ */
+.link-arrow {
+  transition: transform 0.2s ease;
+}
+.group:hover .link-arrow {
+  transform: translateX(3px);
+}
+
+/* ════════════════════════════════════════════
+   SELECTION STYLE
+   ════════════════════════════════════════════ */
+::selection {
+  background: var(--gold);
+  color: var(--dark);
+}
+
+/* ════════════════════════════════════════════
+   BERANDA ENHANCEMENTS (scroll reveal, tilt, marquee, etc.)
+   ════════════════════════════════════════════ */
+
+/* Scroll Reveal (vanilla JS class toggle) */
+.animate-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+.animate-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 3D Tilt Card containers */
+.tilt-card {
+  perspective: 1000px;
+}
+.tilt-card-inner {
+  transition: transform 0.3s ease;
+  transform-style: preserve-3d;
+}
+
+/* Floating crosses pseudo-element decoration */
+.cross-decoration::before,
+.cross-decoration::after {
+  content: '✝';
+  position: absolute;
+  font-size: 2rem;
+  opacity: 0.12;
+  color: #C8A951;
+  animation: float 6s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+.cross-decoration::before {
+  top: 12%;
+  left: 8%;
+  animation-delay: 0s;
+}
+.cross-decoration::after {
+  bottom: 18%;
+  right: 8%;
+  animation-delay: 3s;
+  font-size: 3rem;
+}
+
+/* Chevron bounce for scroll indicator */
+@keyframes chevronBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+.animate-chevron-bounce {
+  animation: chevronBounce 1.5s ease-in-out infinite;
+}
+
+/* Marquee auto-scroll */
+@keyframes marqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.333%); }
+}
+.animate-marquee {
+  animation: marqueeScroll 30s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Hide scrollbar for marquee */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Glow pulse for gold elements */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(200, 169, 81, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(200, 169, 81, 0.6); }
+}
+.animate-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
 }
