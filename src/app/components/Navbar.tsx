@@ -1,95 +1,264 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import {
+  Menu,
+  X,
+  ChevronDown,
+  ExternalLink,
+  Church,
+} from 'lucide-react';
+import { NAV_ITEMS, ANNOUNCEMENTS } from '../data/site-data';
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+// ================================================================
+// AnnouncementTicker
+// ================================================================
+function AnnouncementTicker() {
+  return (
+    <div className="announcement-ticker">
+      <div className="ticker-track">
+        {[...ANNOUNCEMENTS, ...ANNOUNCEMENTS].map((item, idx) => (
+          <span key={idx} className="mx-8 text-sm md:text-base font-medium">
+            {item.text}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+// ================================================================
+// NavLink
+// ================================================================
+interface NavLinkProps {
+  item: (typeof NAV_ITEMS)[number];
+  isActive: boolean;
+  onClick?: () => void;
+  mobile?: boolean;
+}
 
-  const navLinks = [
-    { label: 'TENTANG KAMI', href: '#tentang' },
-    { label: 'IBADAH', href: '#ibadah' },
-    { label: 'LOKASI', href: '#lokasi' },
-    { label: 'CONNECT GROUP', href: '#connect-group' },
-    { label: 'SOROTAN', href: '#sorotan' },
-    { label: 'DONASI', href: '#donasi' },
-  ];
+function NavLink({ item, isActive, onClick, mobile }: NavLinkProps) {
+  const baseClasses =
+    'relative font-medium transition-colors duration-200 whitespace-nowrap';
+  const activeClasses = 'text-gms-gold';
+  const inactiveClasses = 'text-white hover:text-gms-gold';
+
+  const linkClasses = `${baseClasses} ${isActive ? activeClasses : inactiveClasses} ${
+    mobile
+      ? 'block w-full py-3 px-4 text-base border-b border-white/10'
+      : 'inline-flex items-center gap-1 px-3 py-1 text-sm tracking-wide'
+  }`;
+
+  if (item.external) {
+    return (
+      <a
+        href={item.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`${linkClasses} inline-flex items-center gap-1`}
+        onClick={onClick}
+      >
+        {item.label}
+        <ExternalLink className="w-3 h-3" />
+      </a>
+    );
+  }
 
   return (
-    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-      scrolled ? 'bg-[#1A1A2E]/98 backdrop-blur-md shadow-lg' : 'bg-transparent'
-    }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          <a href="#" className="flex items-center space-x-3 group">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#C8A951] to-yellow-600 flex items-center justify-center">
-              <span className="text-white font-bold text-lg">GMS</span>
-            </div>
-            <div className="hidden sm:block">
-              <h1 className="text-white font-serif text-xl font-bold tracking-wider">GMS CHURCH</h1>
-              <p className="text-[#C8A951] text-[10px] tracking-[0.3em] uppercase">A Home for Everyone</p>
-            </div>
-          </a>
+    <Link
+      href={item.href}
+      className={`${linkClasses} ${isActive ? 'nav-active' : ''}`}
+      onClick={onClick}
+    >
+      {item.label}
+    </Link>
+  );
+}
 
-          <div className="hidden lg:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-white/80 hover:text-[#C8A951] transition-colors duration-200 text-sm font-medium tracking-wider"
-              >
-                {link.label}
-              </a>
-            ))}
-            <a
-              href="#"
-              className="px-5 py-2.5 bg-[#C8A951] text-[#1A1A2E] rounded-full text-sm font-bold tracking-wider hover:bg-[#C8A951]/90 transition-all duration-200 hover:shadow-lg hover:shadow-[#C8A951]/30"
-            >
-              GABUNG
-            </a>
-          </div>
+// ================================================================
+// MobileMenu
+// ================================================================
+interface MobileMenuProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
 
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden text-white p-2 rounded-lg hover:bg-white/10 transition-colors"
+function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
+  const pathname = usePathname();
+
+  // Close on route change
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 lg:hidden">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        onClick={onClose}
+      />
+
+      {/* Slide-in panel */}
+      <div className="absolute right-0 top-0 h-full w-72 max-w-[85vw] bg-gms-dark shadow-2xl overflow-y-auto animate-slide-in">
+        <div className="flex items-center justify-between p-4 border-b border-white/10">
+          <Link
+            href="/"
+            className="flex items-center gap-2 text-gms-gold font-serif text-xl font-bold"
+            onClick={onClose}
           >
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
+            <Church className="w-6 h-6" />
+            <span>GMS</span>
+          </Link>
+          <button
+            onClick={onClose}
+            className="text-white/70 hover:text-white p-2 rounded-lg hover:bg-white/10 transition-colors"
+            aria-label="Tutup menu"
+          >
+            <X className="w-6 h-6" />
           </button>
         </div>
-      </div>
 
-      <div className={`lg:hidden transition-all duration-300 overflow-hidden ${
-        isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
-      }`}>
-        <div className="bg-[#1A1A2E]/98 backdrop-blur-md border-t border-white/10 px-4 py-6 space-y-4">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setIsOpen(false)}
-              className="block text-white/80 hover:text-[#C8A951] transition-colors py-2 text-sm font-medium tracking-wider"
-            >
-              {link.label}
-            </a>
-          ))}
+        <nav className="p-2">
+          {NAV_ITEMS.map((item) => {
+            const isActive =
+              !item.external &&
+              (pathname === item.href ||
+                (item.href !== '/' && pathname.startsWith(item.href)));
+
+            return (
+              <NavLink
+                key={item.label}
+                item={item}
+                isActive={isActive}
+                onClick={onClose}
+                mobile
+              />
+            );
+          })}
+        </nav>
+
+        {/* Additional mobile actions */}
+        <div className="p-4 mt-4 border-t border-white/10">
           <a
-            href="#"
-            onClick={() => setIsOpen(false)}
-            className="block text-center px-5 py-3 bg-[#C8A951] text-[#1A1A2E] rounded-full text-sm font-bold tracking-wider hover:bg-[#C8A951]/90 transition-all"
+            href="https://www.youtube.com/@gmschurch"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-gms-gold text-gms-dark font-semibold rounded-lg hover:bg-gms-gold/90 transition-colors"
           >
-            GABUNG
+            <ExternalLink className="w-4 h-4" />
+            Live Streaming
           </a>
         </div>
       </div>
-    </nav>
+    </div>
   );
-};
+}
 
-export default Navbar;
+// ================================================================
+// Navbar
+// ================================================================
+export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Handle scroll
+  const handleScroll = useCallback(() => {
+    setScrolled(window.scrollY > 50);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Check initial scroll position
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
+
+  // Close mobile menu on window resize to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setMobileOpen(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return (
+    <>
+      {/* Announcement Ticker — always above navbar */}
+      <AnnouncementTicker />
+
+      {/* Navbar */}
+      <header
+        className={`sticky top-0 z-40 w-full transition-all duration-300 ${
+          scrolled
+            ? 'bg-gms-dark/95 backdrop-blur-md shadow-lg'
+            : 'bg-gms-dark/70 backdrop-blur-sm'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 lg:h-20">
+            {/* Logo */}
+            <Link
+              href="/"
+              className="flex items-center gap-2 text-gms-gold hover:text-gms-gold/90 transition-colors shrink-0"
+            >
+              <Church className="w-7 h-7 md:w-8 md:h-8" />
+              <span className="font-serif text-xl md:text-2xl font-bold tracking-wide">
+                GMS
+              </span>
+            </Link>
+
+            {/* Desktop Nav */}
+            <nav className="hidden lg:flex items-center gap-1">
+              {NAV_ITEMS.map((item) => {
+                const isActive =
+                  !item.external &&
+                  (pathname === item.href ||
+                    pathname === '/beranda' ||
+                    (item.href !== '/' && pathname.startsWith(item.href)));
+
+                return (
+                  <NavLink
+                    key={item.label}
+                    item={item}
+                    isActive={isActive}
+                  />
+                );
+              })}
+            </nav>
+
+            {/* Mobile Hamburger */}
+            <button
+              className="lg:hidden text-white/80 hover:text-white p-2 rounded-lg hover:bg-white/10 transition-colors"
+              onClick={() => setMobileOpen(true)}
+              aria-label="Buka menu"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Menu */}
+      <MobileMenu
+        isOpen={mobileOpen}
+        onClose={() => setMobileOpen(false)}
+      />
+    </>
+  );
+}

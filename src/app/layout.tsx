@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import Navbar from './components/Navbar';
-import AnnouncementTicker from './components/AnnouncementTicker';
 import Footer from './components/Footer';
 
 export const metadata: Metadata = {
@@ -22,10 +21,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id">
-      <body className="antialiased">
-        <AnnouncementTicker />
+      <body className="antialiased flex flex-col min-h-screen">
         <Navbar />
-        <main>{children}</main>
+        <main className="flex-1">{children}</main>
         <Footer />
       </body>
     </html>

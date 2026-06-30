@@ -1,273 +1,365 @@
-export interface Event {
-  id: number;
-  title: string;
-  date: string;
-  description: string;
-  image: string;
-  link: string;
+// ============================================================
+// GMS Church - Centralized Site Data
+// ============================================================
+
+// ---- Navigation ----
+export interface NavItem {
+  label: string;
+  href: string;
+  external?: boolean;
 }
 
+export const NAV_ITEMS: NavItem[] = [
+  { label: 'BERANDA', href: '/' },
+  { label: 'GEREJA', href: '/church' },
+  { label: 'IBADAH', href: '/service' },
+  { label: 'CG', href: '/cg' },
+  { label: 'TERHUBUNG', href: '/connect' },
+  { label: 'MEDIA', href: '/media' },
+  { label: 'MEMBERI', href: '/give' },
+  { label: 'MISI', href: '/mission' },
+  { label: 'PELAYANAN', href: '/ministry' },
+  { label: 'MSJ', href: '/msj' },
+  { label: 'TOKO', href: 'https://pustakarajawali.com/', external: true },
+];
+
+// ---- Church Locations (GEREJA) ----
 export interface Location {
-  id: number;
+  region: string;
+  countries: string[];
+  description?: string;
+}
+
+export const LOCATIONS: Location[] = [
+  { region: 'Indonesia', countries: ['Seluruh Indonesia'] },
+  { region: 'Asia', countries: ['Jepang', 'Korea', 'Malaysia', 'Singapura', 'Thailand', 'Vietnam', 'Filipina', 'Kamboja', 'Myanmar', 'Timor Leste'] },
+  { region: 'Australia & New Zealand', countries: ['Australia', 'New Zealand'] },
+  { region: 'Eropa', countries: ['Belanda', 'Inggris', 'Jerman', 'Perancis', 'Swiss', 'Austria', 'Italia', 'Spanyol', 'Portugal', 'Yunani', 'Swedia', 'Norwegia', 'Denmark', 'Finlandia', 'Polandia', 'Ukraina', 'Rumania', 'Hongaria', 'Ceko', 'Slovakia', 'Kroasia', 'Serbia', 'Bulgaria'] },
+  { region: 'USA & Canada', countries: ['Amerika Serikat', 'Kanada'] },
+];
+
+// ---- Service Times (IBADAH) ----
+export interface ServiceTimes {
   name: string;
-  city: string;
-  country: string;
-  continent: string;
-  address: string;
-  image: string;
-  types: ('church' | 'office' | 'worship' | 'give')[];
-  worshipTimes?: string;
-  phone?: string;
-  mapLink: string;
+  days: string;
+  times: string[];
+  description: string;
 }
 
-export interface Highlight {
-  id: number;
-  title: string;
-  image: string;
-}
+export const SERVICE_CATEGORIES: { label: string; href: string }[] = [
+  { label: 'Eaglekidz', href: '/service/eaglekidz' },
+  { label: 'Army Of God', href: '/service/army-of-god' },
+  { label: 'Family', href: '/service/family' },
+  { label: 'Senior', href: '/service/senior' },
+  { label: 'English Service', href: '/service/english' },
+];
 
-export interface Affiliation {
-  id: number;
-  name: string;
-  logo: string;
-  link: string;
-}
-
+// ---- Connect Groups (CG) ----
 export interface ConnectGroup {
-  id: number;
   name: string;
+  leader: string;
   location: string;
   day: string;
   time: string;
+  category: string;
+  image?: string;
 }
 
-export const siteConfig = {
-  name: "GMS Church",
-  tagline: "A Home for Everyone",
-  description: "GMS adalah gereja sel yang apostolik dan profetik",
-  vision: "GEREJA SEL YANG APOSTOLIK DAN PROFETIK",
-  mission: "1.000 GEREJA LOKAL YANG KUAT & 1.000.000 MURID",
-  about: "GMS ADALAH GEREJA SEL YANG APOSTOLIK DAN PROFETIK. GEREJA YANG DIPENUHI OLEH RUPA-RUPA KARUNIA ROH KUDUS DAN BERGERAK DALAM AMANAT AGUNG UNTUK MENJADIKAN SEMUA BANGSA MURID KRISTUS.",
-  aboutExtended: "GMS KINI TELAH BERKEMBANG MENJADI GEREJA YANG BERTUMBUH CEPAT KE ARAH 300.000 JEMAAT. DARI KOTA-KOTA DI INDONESIA, SAMPAI KE BENUA ASIA, AUSTRALIA, EROPA, DAN AMERIKA, GMS TERUS BERLARI DALAM MISI YANG TELAH TUHAN PERCAYAKAN, YAITU MENDIRIKAN 1.000 GEREJA LOKAL YANG KUAT DENGAN 1.000.000 MURID KRISTUS.",
-  announcementText: "TAHUN PERSATUAN & SORGA YANG TERBUKA",
-  faithStatement: "Pandangan & Nilai Kekristenan yang GMS Percayai sebagai Gereja Tuhan.",
-};
-
-export const events: Event[] = [
-  {
-    id: 1,
-    title: "MIRACLES IN ISRAEL - SINODE NOVEMBER 2026",
-    date: "November 2026",
-    description: "Bergabunglah dalam perjalanan rohani ke Israel. Saksikan kuasa Tuhan di tanah perjanjian.",
-    image: "/images/event-1.jpg",
-    link: "#",
-  },
-  {
-    id: 2,
-    title: "CG SUPERCON 2026",
-    date: "2026",
-    description: "Connect Group Super Conference - Kebersamaan yang luar biasa dalam murid Kristus.",
-    image: "/images/event-2.jpg",
-    link: "#",
-  },
-  {
-    id: 3,
-    title: "CHRISTMAS CELEBRATION 2026",
-    date: "Desember 2026",
-    description: "Rayakan Natal bersama keluarga GMS di seluruh dunia.",
-    image: "/images/event-3.jpg",
-    link: "#",
-  },
-];
-
-export const locations: Location[] = [
-  {
-    id: 1,
-    name: "GMS Surabaya Barat",
-    city: "Surabaya",
-    country: "Indonesia",
-    continent: "Indonesia",
-    address: "Pakuwon Mall Surabaya, Lantai Rooftop 2\nPerumahan Pakuwon Indah, Jalan Puncak Indah Lontar No. 2\nSurabaya 60216, Indonesia",
-    image: "/images/loc-sby-barat.jpg",
-    types: ["church", "office", "worship", "give"],
-    worshipTimes: "Minggu: 07:00, 09:00, 11:00, 16:00, 18:00",
-    mapLink: "https://maps.google.com",
-  },
-  {
-    id: 2,
-    name: "GMS Surabaya Pusat Utara",
-    city: "Surabaya",
-    country: "Indonesia",
-    continent: "Indonesia",
-    address: "Grand City Mall Lt. 2\nJl. Walikota Mustajab No. 1, Ketabang, Surabaya",
-    image: "/images/loc-sby-pusut.jpg",
-    types: ["church", "office", "worship", "give"],
-    worshipTimes: "Minggu: 08:00, 10:00, 17:00",
-    mapLink: "https://maps.google.com",
-  },
-  {
-    id: 3,
-    name: "GMS Surabaya Selatan",
-    city: "Surabaya",
-    country: "Indonesia",
-    continent: "Indonesia",
-    address: "Maspion Convention Center Lt. Dasar Blok MCC3\nJl. Ahmad Yani no 73 Maspion Square, Surabaya",
-    image: "/images/loc-sby-selatan.jpg",
-    types: ["church", "worship", "give"],
-    worshipTimes: "Minggu: 08:00, 10:00, 17:00",
-    mapLink: "https://maps.google.com",
-  },
-  {
-    id: 4,
-    name: "GMS Surabaya Timur",
-    city: "Surabaya",
-    country: "Indonesia",
-    continent: "Indonesia",
-    address: "Pakuwon City Mall 3 Lt. P8\nJl. Kejawan Putih Mutiara 17, Pakuwon City, Surabaya",
-    image: "/images/loc-sby-timur.jpg",
-    types: ["church", "worship", "give"],
-    worshipTimes: "Minggu: 07:00, 09:00, 11:00, 17:00",
-    mapLink: "https://maps.google.com",
-  },
-  {
-    id: 5,
-    name: "GMS Jakarta",
-    city: "Jakarta",
-    country: "Indonesia",
-    continent: "Indonesia",
-    address: "Jakarta, Indonesia",
-    image: "/images/loc-jakarta.jpg",
-    types: ["church", "worship"],
-    mapLink: "https://maps.google.com",
-  },
-  {
-    id: 6,
-    name: "GMS Melbourne",
-    city: "Melbourne",
-    country: "Australia",
-    continent: "Australia & New Zealand",
-    address: "Melbourne, Australia",
-    image: "/images/loc-melbourne.jpg",
-    types: ["church", "worship"],
-    mapLink: "https://maps.google.com",
-  },
-  {
-    id: 7,
-    name: "GMS Sydney",
-    city: "Sydney",
-    country: "Australia",
-    continent: "Australia & New Zealand",
-    address: "Sydney, Australia",
-    image: "/images/loc-sydney.jpg",
-    types: ["church", "worship"],
-    mapLink: "https://maps.google.com",
-  },
-  {
-    id: 8,
-    name: "GMS Singapura",
-    city: "Singapore",
-    country: "Singapore",
-    continent: "Asia",
-    address: "Singapore",
-    image: "/images/loc-singapore.jpg",
-    types: ["church", "worship"],
-    mapLink: "https://maps.google.com",
-  },
-  {
-    id: 9,
-    name: "GMS Belanda",
-    city: "Amsterdam",
-    country: "Netherlands",
-    continent: "Eropa",
-    address: "Amsterdam, Netherlands",
-    image: "/images/loc-belanda.jpg",
-    types: ["church", "worship"],
-    mapLink: "https://maps.google.com",
-  },
-  {
-    id: 10,
-    name: "GMS Los Angeles",
-    city: "Los Angeles",
-    country: "USA",
-    continent: "USA & Canada",
-    address: "Los Angeles, CA, USA",
-    image: "/images/loc-la.jpg",
-    types: ["church", "worship"],
-    mapLink: "https://maps.google.com",
-  },
-];
-
 export const connectGroups: ConnectGroup[] = [
-  { id: 1, name: "CG Pemuda", location: "Surabaya Barat", day: "Jumat", time: "19:00" },
-  { id: 2, name: "CG Profesional", location: "Surabaya Pusat", day: "Sabtu", time: "16:00" },
-  { id: 3, name: "CG Keluarga", location: "Surabaya Timur", day: "Minggu", time: "12:00" },
+  { name: 'CG Pemuda Victory', leader: 'Ps. Andi', location: 'Surabaya Pusat', day: 'Jumat', time: '19:00 WIB', category: 'Pemuda' },
+  { name: 'CG Profesional', leader: 'Ps. Budi', location: 'Surabaya Barat', day: 'Sabtu', time: '16:00 WIB', category: 'Dewasa' },
+  { name: 'CG Keluarga Bahagia', leader: 'Ps. Charles', location: 'Surabaya Timur', day: 'Minggu', time: '10:00 WIB', category: 'Keluarga' },
+  { name: 'CG Mahasiswa', leader: 'Ps. Diana', location: 'Surabaya Selatan', day: 'Kamis', time: '18:00 WIB', category: 'Mahasiswa' },
+  { name: 'CG Wanita', leader: 'Ps. Esther', location: 'Online', day: 'Rabu', time: '10:00 WIB', category: 'Wanita' },
 ];
 
-export const highlights: Highlight[] = [
-  { id: 1, title: "CG SUPERCON 2026", image: "/images/highlight-1.jpg" },
-  { id: 2, title: "KONSER NATAL", image: "/images/highlight-2.jpg" },
-  { id: 3, title: "RETREAT PEMUDA", image: "/images/highlight-3.jpg" },
-  { id: 4, title: "MIRACLES IN ISRAEL", image: "/images/highlight-4.jpg" },
-  { id: 5, title: "KELAS PEMURIDAN", image: "/images/highlight-5.jpg" },
-  { id: 6, title: "BAPTISAN AIR", image: "/images/highlight-6.jpg" },
-  { id: 7, title: "SEMINAR KEUANGAN", image: "/images/highlight-7.jpg" },
-  { id: 8, title: "PELAYANAN SOSIAL", image: "/images/highlight-8.jpg" },
-  { id: 9, title: "KONSELING PASTORAL", image: "/images/highlight-9.jpg" },
-  { id: 10, title: "SCHOOL OF LEADERSHIP", image: "/images/highlight-10.jpg" },
-  { id: 11, title: "MISI DUNIA", image: "/images/highlight-11.jpg" },
-  { id: 12, title: "IBADAH RAYA", image: "/images/highlight-12.jpg" },
-  { id: 13, title: "PEMUDA BANGKIT", image: "/images/highlight-13.jpg" },
-  { id: 14, title: "DOA MALAM", image: "/images/highlight-14.jpg" },
-  { id: 15, title: "KELUARGA ALLAH", image: "/images/highlight-15.jpg" },
+// ---- Connect / Terhubung ----
+export interface ConnectAction {
+  label: string;
+  href: string;
+  description: string;
+  icon?: string;
+}
+
+export const CONNECT_ACTIONS: ConnectAction[] = [
+  { label: 'Menerima Tuhan Yesus', href: '/connect/salvation', description: 'Berdoa dan terima Yesus sebagai Tuhan dan Juruselamat' },
+  { label: 'Baptis', href: '/connect/baptism', description: 'Daftar untuk baptisan selam' },
+  { label: 'Gabung Connect Group', href: '/connect/join-cg', description: 'Temukan CG terdekat' },
+  { label: 'Testimoni', href: '/connect/testimony', description: 'Bagikan kesaksian Anda' },
+  { label: 'Permintaan Doa/Konseling', href: '/connect/prayer', description: 'Kami siap mendoakan Anda' },
+  { label: 'Pemberkatan Pernikahan', href: '/connect/wedding', description: 'Daftar pemberkatan nikah' },
+  { label: 'Penyerahan Anak', href: '/connect/dedication', description: 'Pendaftaran penyerahan anak' },
 ];
 
-export const affiliations: Affiliation[] = [
-  { id: 1, name: "PPM", logo: "/images/ppm.png", link: "#" },
-  { id: 2, name: "MSP", logo: "/images/msp.png", link: "#" },
-  { id: 3, name: "PR", logo: "/images/pr.png", link: "#" },
-  { id: 4, name: "FKA", logo: "/images/fka.png", link: "#" },
-  { id: 5, name: "Bizcon", logo: "/images/bizcon.png", link: "#" },
-  { id: 6, name: "STT", logo: "/images/stt.png", link: "#" },
+// ---- Media ----
+export interface MediaLink {
+  label: string;
+  href: string;
+  icon: string;
+}
+
+export const MEDIA_LINKS: MediaLink[] = [
+  { label: 'YouTube', href: 'https://www.youtube.com/@gmschurch', icon: 'youtube' },
+  { label: 'Instagram', href: 'https://www.instagram.com/gmschurch/', icon: 'instagram' },
+  { label: 'TV GMS', href: 'https://www.youtube.com/@gmschurch', icon: 'tv' },
+  { label: 'Musik', href: 'https://music.youtube.com/', icon: 'music' },
 ];
 
-export const continents = ["Indonesia", "Asia", "Australia & New Zealand", "Eropa", "USA & Canada"];
+// ---- Give / Memberi ----
+export interface GivingMethod {
+  name: string;
+  description: string;
+  instruction: string;
+  icon?: string;
+}
 
-export const pastorProfile = {
-  name: "Ps. Philip Mantofa",
-  title: "GEMBALA SIDANG",
-  image: "/images/pastor-philip.jpg",
-  bio: `Pastor Philip Mantofa dilahirkan di Surabaya pada tanggal 27 September, 1974. Dari kota kelahirannya, ia menempuh sekolah di Taipei, Singapore, dan akhirnya bertobat saat SMA di Vancouver, Canada. Dua tahun setelah lulus sarjana sekolah Alkitab, saat kerusuhan terjadi di Indonesia pada bulan Mei 1998, ia memutuskan untuk pulang ke tanah airnya demi memberitakan Injil.`,
-  bioExtended: `Saat ini, ia menjabat sebagai gembala senior organisasi dan jaringan gereja ini. Visinya adalah untuk mendirikan 1.000 gereja lokal yang kuat dengan 1 juta murid Kristus. Kerinduan hatinya yang menyala adalah untuk melihat bangsa-bangsa mengalami kasih Yesus Kristus.`,
+export const GIVING_METHODS: GivingMethod[] = [
+  { name: 'Transfer Bank', description: 'BCA / Mandiri / BNI', instruction: 'Hubungi kami untuk detail rekening' },
+  { name: 'Online Giving', description: 'Melalui platform online', instruction: 'Kunjungi halaman memberi' },
+];
+
+// ---- Mission ----
+export interface MissionGoal {
+  title: string;
+  description: string;
+  target: number;
+  current?: number;
+}
+
+export const MISSION_GOALS: MissionGoal[] = [
+  { title: '2030 300', description: '300 jiwa terjangkau pada tahun 2030', target: 300, current: 45 },
+  { title: 'Saya Terbeban Berkontribusi', description: 'Bergabung dalam misi gereja', target: 1000, current: 320 },
+];
+
+// ---- Ministry ----
+export interface Ministry {
+  name: string;
+  description: string;
+  category: string;
+  href?: string;
+}
+
+export const MINISTRIES: Ministry[] = [
+  { name: 'Eaglekidz', description: 'Pelayanan anak usia 1-12 tahun', category: 'Anak' },
+  { name: 'Army Of God', description: 'Pelayanan remaja usia 13-18 tahun', category: 'Remaja' },
+  { name: 'Youth', description: 'Pelayanan pemuda', category: 'Pemuda' },
+  { name: 'Young Adult', description: 'Pelayanan dewasa muda', category: 'Dewasa Muda' },
+  { name: 'Pro', description: 'Pelayanan profesional', category: 'Dewasa' },
+  { name: 'Senior', description: 'Pelayanan lansia', category: 'Lansia' },
+  { name: 'Music & Worship', description: 'Pelayanan musik dan pujian', category: 'Kreatif' },
+];
+
+// ---- Events ----
+export interface Event {
+  title: string;
+  date: string;
+  time?: string;
+  location: string;
+  description: string;
+  image?: string;
+  category: string;
+  href?: string;
+}
+
+export const EVENTS: Event[] = [
+  {
+    title: 'Sunday Service',
+    date: 'Setiap Minggu',
+    time: '07:00, 09:00, 11:00, 16:00, 18:00 WIB',
+    location: 'GMS Main Hall & Online',
+    description: 'Kebaktian umum GMS',
+    category: 'Ibadah',
+  },
+  {
+    title: 'Youth Awakening',
+    date: 'Jumat, 15 Juli 2026',
+    time: '19:00 WIB',
+    location: 'GMS Youth Hall',
+    description: 'Kebaktian pemuda',
+    category: 'Pemuda',
+  },
+];
+
+// ---- Highlights / Hero ----
+export interface Highlight {
+  title: string;
+  subtitle?: string;
+  description: string;
+  image: string;
+  ctaText?: string;
+  ctaHref?: string;
+}
+
+export const HERO_HIGHLIGHTS: Highlight[] = [
+  {
+    title: 'A Home for Everyone',
+    subtitle: 'GMS Church',
+    description: 'Gereja sel yang apostolik dan profetik. Bergabunglah dengan keluarga rohani kami.',
+    image: '/gms-church-clone/images/hero-1.jpg',
+    ctaText: 'Gabung CG',
+    ctaHref: '/cg',
+  },
+  {
+    title: 'Misi 2030-300',
+    subtitle: 'Great Commission',
+    description: 'Menjangkau 300 jiwa pada tahun 2030',
+    image: '/gms-church-clone/images/hero-2.jpg',
+    ctaText: 'Saya Terbeban',
+    ctaHref: '/mission',
+  },
+  {
+    title: 'GMS Media',
+    subtitle: 'Watch & Listen',
+    description: 'Nikmati konten rohani melalui YouTube, TV GMS, dan Musik',
+    image: '/gms-church-clone/images/hero-3.jpg',
+    ctaText: 'Tonton Sekarang',
+    ctaHref: '/media',
+  },
+];
+
+// ---- Affiliations / Partners ----
+export interface Affiliation {
+  name: string;
+  logo?: string;
+  description?: string;
+  href?: string;
+}
+
+export const AFFILIATIONS: Affiliation[] = [
+  { name: 'GMS Church', description: 'Gereja Misi Seluruh Dunia' },
+  { name: 'Pustaka Rajawali', description: 'Penerbitan dan toko buku' },
+  { name: 'Sekolah Misi', description: 'Sekolah pengutusan misi' },
+];
+
+// ---- Announcements (for Ticker) ----
+export interface Announcement {
+  text: string;
+  href?: string;
+}
+
+export const ANNOUNCEMENTS: Announcement[] = [
+  { text: '🔥 Kebaktian Raya Minggu: 07:00 | 09:00 | 11:00 | 16:00 | 18:00 WIB — GMS Main Hall & Online' },
+  { text: '🎯 Misi 2030 300 — "Saya Terbeban Berkontribusi!" Daftar sekarang!' },
+  { text: '📖 Kunjungi Toko Buku Rohani — pustakarajawali.com' },
+  { text: '🙏 Butuh doa? Kirim permintaan doa Anda ke admin@gms.church' },
+];
+
+// ---- Footer Data ----
+export interface FooterLink {
+  label: string;
+  href: string;
+  external?: boolean;
+}
+
+export interface FooterColumn {
+  title: string;
+  links: FooterLink[];
+}
+
+export const FOOTER_COLUMNS: FooterColumn[] = [
+  {
+    title: 'GEREJA',
+    links: [
+      { label: 'Indonesia', href: '/church' },
+      { label: 'Asia', href: '/church' },
+      { label: 'Australia & New Zealand', href: '/church' },
+      { label: 'Eropa', href: '/church' },
+      { label: 'USA & Canada', href: '/church' },
+    ],
+  },
+  {
+    title: 'IBADAH',
+    links: [
+      { label: 'Eaglekidz', href: '/service/eaglekidz' },
+      { label: 'Army Of God', href: '/service/army-of-god' },
+      { label: 'Family', href: '/service/family' },
+      { label: 'Senior', href: '/service/senior' },
+      { label: 'English Service', href: '/service/english' },
+    ],
+  },
+  {
+    title: 'CONNECT GROUP',
+    links: [
+      { label: 'Connect Group', href: '/cg' },
+    ],
+  },
+  {
+    title: 'TERHUBUNG',
+    links: [
+      { label: 'Menerima Tuhan Yesus', href: '/connect/salvation' },
+      { label: 'Baptis', href: '/connect/baptism' },
+      { label: 'Gabung Connect Group', href: '/connect/join-cg' },
+      { label: 'Testimoni', href: '/connect/testimony' },
+      { label: 'Permintaan Doa/Konseling', href: '/connect/prayer' },
+      { label: 'Pemberkatan Pernikahan', href: '/connect/wedding' },
+      { label: 'Penyerahan Anak', href: '/connect/dedication' },
+    ],
+  },
+  {
+    title: 'MISI',
+    links: [
+      { label: '2030 300', href: '/mission' },
+      { label: 'Saya Terbeban Berkontribusi', href: '/mission' },
+    ],
+  },
+  {
+    title: 'PELAYANAN',
+    links: [
+      { label: 'Apa itu Pelayanan', href: '/ministry' },
+      { label: 'Saya Mau Melayani', href: '/ministry' },
+    ],
+  },
+  {
+    title: 'MEDIA',
+    links: [
+      { label: 'YouTube', href: 'https://www.youtube.com/@gmschurch', external: true },
+      { label: 'Instagram', href: 'https://www.instagram.com/gmschurch/', external: true },
+      { label: 'TV GMS', href: 'https://www.youtube.com/@gmschurch', external: true },
+      { label: 'Musik', href: 'https://music.youtube.com/', external: true },
+    ],
+  },
+  {
+    title: 'TOKO',
+    links: [
+      { label: 'Audio & Video', href: 'https://pustakarajawali.com/', external: true },
+      { label: 'Buku', href: 'https://pustakarajawali.com/', external: true },
+      { label: 'Pakaian', href: 'https://pustakarajawali.com/', external: true },
+      { label: 'Cindera Mata', href: 'https://pustakarajawali.com/', external: true },
+    ],
+  },
+  {
+    title: 'UNDUH APLIKASI',
+    links: [
+      { label: 'Android', href: '#', external: true },
+      { label: 'Apple', href: '#', external: true },
+      { label: 'Huawei', href: '#', external: true },
+    ],
+  },
+];
+
+export const SOCIAL_MEDIA_LINKS: FooterLink[] = [
+  { label: 'Instagram', href: 'https://www.instagram.com/gmschurch/', external: true },
+  { label: 'Facebook', href: 'https://www.facebook.com/gmschurch/', external: true },
+  { label: 'YouTube', href: 'https://www.youtube.com/@gmschurch', external: true },
+  { label: 'Email', href: 'mailto:admin@gms.church', external: true },
+];
+
+// ---- Footer bottom info ----
+export const FOOTER_INFO = {
+  churchName: 'GMS Church — Gereja Misi Seluruh Dunia',
+  tagline: 'A Home for Everyone',
+  copyright: `© ${new Date().getFullYear()} GMS Church. All rights reserved.`,
+  address: 'Jl. Raya GMS No. 1, Surabaya, Indonesia',
+  email: 'admin@gms.church',
+  phone: '+62 31 1234 5678',
 };
 
-export const footerLinks = {
-  gereja: [
-    { label: "Indonesia", href: "#indonesia" },
-    { label: "Asia", href: "#asia" },
-    { label: "Australia & New Zealand", href: "#anz" },
-    { label: "Eropa", href: "#eropa" },
-    { label: "USA & Canada", href: "#usa" },
-  ],
-  ibadah: [
-    { label: "Eaglekidz", href: "#" },
-    { label: "Army Of God", href: "#" },
-    { label: "Family", href: "#" },
-    { label: "Senior", href: "#" },
-    { label: "English Service", href: "#" },
-  ],
-  connect: [
-    { label: "Connect Group", href: "#connect-group" },
-    { label: "Menerima Tuhan Yesus", href: "#" },
-    { label: "Baptis", href: "#" },
-    { label: "Melayani", href: "#" },
-    { label: "Misi", href: "#" },
-  ],
-  terhubung: [
-    { label: "Menerima Tuhan Yesus", href: "#" },
-    { label: "Baptis", href: "#" },
-    { label: "Anggota Baru", href: "#" },
-    { label: "Donasi", href: "#" },
-    { label: "Karir", href: "#" },
-  ],
+// ---- Site Config ----
+export const SITE_CONFIG = {
+  name: 'GMS Church',
+  shortName: 'GMS',
+  baseUrl: 'https://gms.church',
+  basePath: '/gms-church-clone',
+  description: 'Gereja sel yang apostolik dan profetik',
+  keywords: ['GMS', 'church', 'gereja', 'surabaya', 'Philip Mantofa', 'connect group'],
 };

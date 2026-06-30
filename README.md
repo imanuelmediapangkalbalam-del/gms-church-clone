@@ -1,46 +1,48 @@
-# GMS Church Clone
+# GMS Church - Full Website Clone
 
-Website gereja modern berbasis Next.js — clone dari [gms.church](https://gms.church/)
+Clone lengkap dari [gms.church](https://gms.church/) — Website gereja modern dengan Next.js
 
-## Fitur Lengkap
+## 🌐 Live Site
 
-- 🏠 **Hero Section** — Welcome screen dengan background parallax
-- 📢 **Announcement Ticker** — Running text pengumuman
-- 🙏 **Tentang Kami** — Visi, Misi, Pengakuan Iman
-- 📅 **Events Carousel** — Acara-acara gereja dengan navigasi slide
-- 🌍 **Lokasi Global** — Pencarian & filter lokasi gereja seluruh dunia
-- 🤝 **Connect Group** — Informasi kelompok sel
-- 👨‍🏫 **Gembala Sidang** — Profil senior pastor
-- 🖼️ **Sorotan Galeri** — Galeri foto interaktif
-- 🔗 **Afiliasi** — Jaringan dan mitra pelayanan
-- 📱 **Responsive** — Mobile-friendly dengan navigasi hamburger
-- 🎨 **Dark Theme** — Tema gelap elegan dengan aksen emas
+**[https://imanuelmediapangkalbalam-del.github.io/gms-church-clone/](https://imanuelmediapangkalbalam-del.github.io/gms-church-clone/)**
 
-## Tech Stack
+## 📋 Halaman Lengkap
 
-- **Framework:** Next.js 14 (App Router)
+| # | Halaman | Route | Fitur |
+|---|---------|-------|-------|
+| 🏠 | **Beranda** | `/beranda` | Hero, Visi/Misi, Events, Lokasi, CG, Pastor, Sorotan, Afiliasi |
+| ⛪ | **Gereja** | `/church` | Pencarian lokasi global, filter benua, detail lokasi |
+| 🙏 | **Ibadah** | `/service` | 5 kategori ibadah, jadwal, cari lokasi |
+| 👥 | **CG** | `/cg` | Info CG, kategori, FAQ, cara bergabung |
+| 📞 | **Terhubung** | `/connect` | Form online (Yesus, Baptis, CG, Doa, dll) |
+| 📺 | **Media** | `/media` | YouTube, Instagram, TV GMS, Musik |
+| 💝 | **Memberi** | `/give` | Donasi transfer bank, QRIS, kartu kredit |
+| 🌍 | **Misi** | `/mission` | 2030:300, gereja misi, rekening donasi |
+| 🤝 | **Pelayanan** | `/ministry` | 13 departemen pelayanan, Servolution |
+| 📚 | **MSJ** | `/msj` | My Spiritual Journey 3 level |
+| 🛒 | **Toko** | eksternal | pustakarajawali.com |
+
+## 🛠️ Tech Stack
+
+- **Framework:** Next.js 14 (App Router) — Static Export
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS
 - **Icons:** Lucide React
 - **Fonts:** Playfair Display + Inter (Google Fonts)
+- **Deploy:** GitHub Pages + GitHub Actions
 
-## Cara Menjalankan
+## 🚀 Cara Menjalankan
 
 ```bash
 npm install
 npm run dev
 ```
 
-Buka [http://localhost:3000](http://localhost:3000)
-
-## 🌐 Live Site
-
-Website ini sudah live di GitHub Pages:
-**[https://imanuelmediapangkalbalam-del.github.io/gms-church-clone/](https://imanuelmediapangkalbalam-del.github.io/gms-church-clone/)**
-
-## Build Production
+## 📦 Build & Deploy
 
 ```bash
-npm run build
-npm start
+npm run build   # Static export ke folder out/
+npm start       # Production server
 ```
+
+Push ke `master` → otomatis deploy ke GitHub Pages via GitHub Actions.
